@@ -16,7 +16,7 @@ public class RequestsCounterController {
 
     @GetMapping("/requests")
     public Long getRequestsCount() {
-        long result = counter.incrementAndGet();
+        long result = counter.incrementAndGet().incrementAndGet().incrementAndGet().incrementAndGet().incrementAndGet();
         log.info(append("Request", result), "Request counter incremented");
         return result;
     }
