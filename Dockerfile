@@ -23,5 +23,5 @@ ENV JAVA_HOME=/opt/java-minimal
 ENV PATH="$PATH:$JAVA_HOME/bin"
 COPY --from=packager "$JAVA_HOME" "$JAVA_HOME"
 COPY --from=builder /src/target/microservices-backend-*.jar app.jar
-EXPOSE 8081
+EXPOSE 8080
 ENTRYPOINT ["java","-jar","/app.jar"]
