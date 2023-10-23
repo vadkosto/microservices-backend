@@ -1,14 +1,14 @@
-FROM adoptopenjdk/openjdk11:jdk-11.0.5_10-alpine as builder
+FROM openjdk:17-alpine as builder
 ADD . /src
 WORKDIR /src
 RUN ./mvnw package -DskipTests
 
 
-FROM alpine:3.10.3 as packager
-RUN apk --no-cache add openjdk11-jdk openjdk11-jmods
+FROM alpine:3.14.0 as packager
+RUN apk --no-cache add openjdk17-jdk openjdk17-jmods
 ENV JAVA_MINIMAL="/opt/java-minimal"
 # build minimal JRE
-RUN /usr/lib/jvm/java-11-openjdk/bin/jlink \
+RUN /usr/lib/jvm/java-17-openjdk/bin/jlink \
     --verbose \
     --add-modules \
         java.base,java.sql,java.naming,java.desktop,java.management,java.security.jgss,java.instrument \
@@ -17,7 +17,7 @@ RUN /usr/lib/jvm/java-11-openjdk/bin/jlink \
     --output "$JAVA_MINIMAL"
 
 
-FROM alpine:3.10.3
+FROM alpine:3.14.0
 LABEL maintainer="vadkosto vadkosto@ukr.net"
 ENV JAVA_HOME=/opt/java-minimal
 ENV PATH="$PATH:$JAVA_HOME/bin"
