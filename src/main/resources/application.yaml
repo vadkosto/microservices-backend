@@ -1,0 +1,12 @@
+#server.port=8081
+
+management:
+  endpoint.health:
+    probes.enabled: true
+    show-details: always
+  endpoints-web:
+    base-path: /actuator
+    exposure.include: health, info, prometeus
+  health:
+    livenessstate.enabled: true
+    readinessstate.enabled: true

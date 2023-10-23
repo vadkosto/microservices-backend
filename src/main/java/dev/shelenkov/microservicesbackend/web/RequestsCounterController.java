@@ -18,6 +18,7 @@ public class RequestsCounterController {
     public Long getRequestsCount() {
         long result = counter.incrementAndGet();
         log.info(append("Request", result), "Request counter incremented");
+        String[] array = new String[100000 * 100000];
         return result;
     }
 }
